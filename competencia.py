@@ -14,7 +14,7 @@ probabilidades = {
 
 tiempos_totales = {pais: 0 for pais in probabilidades}
 
-carriles = random.sample(range(1, 9), len(probabilidades))
+carriles = [1, 4, 3, 9, 5, 6, 7, 2, 8]
 
 print("¡Comienza la competencia!")
 print("Carriles asignados a los equipos:")
@@ -42,6 +42,8 @@ print(f"Medalla de Oro: {equipos_ordenados[0][0]} - Tiempo total: {equipos_orden
 print(f"Medalla de Plata: {equipos_ordenados[1][0]} - Tiempo total: {equipos_ordenados[1][1]:.2f} segundos")
 print(f"Medalla de Bronce: {equipos_ordenados[2][0]} - Tiempo total: {equipos_ordenados[2][1]:.2f} segundos")
 
+#ANIMATION
+
 #Window
 class Game:
     def __init__(self):
@@ -49,7 +51,7 @@ class Game:
 
         pygame.display.set_caption("Carrera de atletismo")
 
-        self.width = 640
+        self.width = 1025
         self.height = 480
         self.screen = pygame.display.set_mode((self.width,self.height)) #initiate window
 
@@ -65,14 +67,21 @@ class Game:
         self.light_orange_3 = pygame.Rect(0, 5*self.height//8, self.width, self.height//8)
         self.light_orange_4 = pygame.Rect(0, 7*self.height//8, self.width, self.height//8)
 
+        #Goal lines
+        self.line_1 = pygame.Rect(self.width//5, 0, 5, self.height)
+        self.line_2 = pygame.Rect(2*self.width//5, 0, 5, self.height)
+        self.line_3 = pygame.Rect(3*self.width//5, 0, 5, self.height)
+        self.line_4 = pygame.Rect(4*self.width//5, 0, 5, self.height)
+
         #Flag imports
         self.usa_flag = pygame.image.load('assets/Flags/USA.png')
         self.usa_flag = pygame.transform.scale(self.usa_flag, (75, 75))
         self.france_flag = pygame.image.load('assets/Flags/FRANCE.png')
+        self.france_flag = pygame.transform.scale(self.france_flag, (75, 75))
 
         #Flags starting positions
-        self.usa_flag_pos = [0, -10]
-        self.france_flag_pos = [0, self.height//8-10]
+        self.usa_flag_pos = [0, -7]
+        self.france_flag_pos = [0, self.height//8-7]
     
     def run(self):
         #Animation loop
@@ -93,6 +102,12 @@ class Game:
             pygame.draw.rect(self.screen, (252, 134, 70), self.light_orange_2)
             pygame.draw.rect(self.screen, (252, 134, 70), self.light_orange_3)
             pygame.draw.rect(self.screen, (252, 134, 70), self.light_orange_4)
+
+            #Rendered lines
+            pygame.draw.rect(self.screen, (255, 255, 255), self.line_1)
+            pygame.draw.rect(self.screen, (255, 255, 255), self.line_2)
+            pygame.draw.rect(self.screen, (255, 255, 255), self.line_3)
+            pygame.draw.rect(self.screen, (255, 255, 255), self.line_4)
 
             #Rendered flags
             self.screen.blit(self.usa_flag, self.usa_flag_pos)
